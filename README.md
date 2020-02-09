@@ -1,2 +1,2 @@
 # corvus-example-project
-An example project build with Corvus.
+This repository contains Xpense, an app that manages bank accounts and transactions for specific users. It is built with Corvus.
