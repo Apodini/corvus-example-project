@@ -1,4 +1,4 @@
-// swift-tools-version:5.1
+// swift-tools-version:5.2
 import PackageDescription
 
 let package = Package(
@@ -13,21 +13,24 @@ let package = Package(
     dependencies: [
         // 💧 A server-side Swift web framework.
         .package(
-            url: "https://github.com/bmikaili/corvus.git",
-            from: "0.0.3"
+            url: "https://github.com/Apodini/corvus",
+            from: "0.0.5"
         ),
 
         .package(
             url: "https://github.com/vapor/fluent-sqlite-driver.git",
-            from: "4.0.0-beta.3"
+            from: "4.0.0-rc"
         ),
     ],
     targets: [
         .target(
             name: "App",
             dependencies: [
-                "Corvus",
-                "FluentSQLiteDriver",
+                .product(name: "Corvus", package: "corvus"),
+                .product(
+                    name: "FluentSQLiteDriver",
+                    package: "fluent-sqlite-driver"
+                ),
             ]
         ),
         .target(name: "Run", dependencies: ["App"]),

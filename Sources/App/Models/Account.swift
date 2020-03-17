@@ -5,8 +5,8 @@ final class Account: CorvusModel {
 
     static let schema = "accounts"
 
-    @ID(key: "id")
-    var id: Int? {
+    @ID
+    var id: UUID? {
         didSet {
             $id.exists = true
         }
@@ -15,13 +15,13 @@ final class Account: CorvusModel {
     @Field(key: "name")
     var name: String
 
-    @Parent(key: "userId")
+    @Parent(key: "user_id")
     var user: CorvusUser
 
     @Children(for: \.$account)
     var transactions: [Transaction]
 
-    init(id: Int? = nil, name: String) {
+    init(id: UUID? = nil, name: String) {
         self.id = id
         self.name = name
     }
@@ -29,18 +29,21 @@ final class Account: CorvusModel {
     init() {}
 }
 
-extension Account {
-    struct Migration: Fluent.Migration {
-        func prepare(on database: Database) -> EventLoopFuture<Void> {
-            return database.schema("accounts")
-                .field("id", .int, .identifier(auto: true))
-                .field("userId", .int, .required)
-                .field("name", .string, .required)
-                .create()
-        }
+struct CreateAccount: Migration {
 
-        func revert(on database: Database) -> EventLoopFuture<Void> {
-            return database.schema("accounts").delete()
-        }
+    func prepare(on database: Database) -> EventLoopFuture<Void> {
+        return database.schema(Account.schema)
+            .id()
+            .field("name", .string, .required)
+            .field(
+                "user_id",
+                .uuid,
+                .references(CorvusUser.schema, "id")
+            )
+            .create()
+    }
+
+    func revert(on database: Database) -> EventLoopFuture<Void> {
+        return database.schema(Account.schema).delete()
     }
 }

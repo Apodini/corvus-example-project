@@ -5,8 +5,8 @@ final class Transaction: CorvusModel {
 
     static let schema = "transactions"
 
-    @ID(key: "id")
-    var id: Int? {
+    @ID
+    var id: UUID? {
         didSet {
             $id.exists = true
         }
@@ -24,43 +24,42 @@ final class Transaction: CorvusModel {
     @Field(key: "date")
     var date: Date
 
-    @Parent(key: "accountId")
+    @Parent(key: "account_id")
     var account: Account
 
     init(
-        id: Int? = nil,
+        id: UUID? = nil,
         amount: Double,
         currency: String,
         description: String?,
         date: Date,
-        accountId: Account.IDValue
+        accountID: Account.IDValue
     ) {
       self.id = id
       self.amount = amount
       self.currency = currency
       self.description = description
       self.date = date
-      self.$account.id = accountId
+      self.$account.id = accountID
     }
 
     init() {}
 }
 
-extension Transaction {
-    struct Migration: Fluent.Migration {
-        func prepare(on database: Database) -> EventLoopFuture<Void> {
-            return database.schema("transactions")
-                .field("id", .int, .identifier(auto: true))
-                .field("amount", .double, .required)
-                .field("currency", .string, .required)
-                .field("description", .string)
-                .field("date", .datetime, .required)
-                .field("accountId", .int, .required)
-                .create()
-        }
+struct CreateTransaction: Migration {
 
-        func revert(on database: Database) -> EventLoopFuture<Void> {
-            return database.schema("transactions").delete()
-        }
+    func prepare(on database: Database) -> EventLoopFuture<Void> {
+        return database.schema(Transaction.schema)
+            .id()
+            .field("amount", .double, .required)
+            .field("currency", .string, .required)
+            .field("description", .string)
+            .field("date", .datetime, .required)
+            .field("account_id", .uuid, .references(Account.schema, .id))
+            .create()
+    }
+
+    func revert(on database: Database) -> EventLoopFuture<Void> {
+        return database.schema(Transaction.schema).delete()
     }
 }

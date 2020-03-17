@@ -21,7 +21,7 @@ final class Api: RestApi {
 
                         Group("transactions") {
                             ReadOne<Account>(accountParameter.id)
-                                .with(\.$transactions).auth(\.$user)
+                                .children(\.$transactions).auth(\.$user)
                         }
                     }
                 }
