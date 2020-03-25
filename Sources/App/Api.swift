@@ -6,7 +6,7 @@ final class Api: RestApi {
 
     var content: Endpoint {
         Group {
-            BearerAuthGroup("api") {
+            BearerAuthGroup<CorvusToken>("api") {
                 Group("accounts") {
                     Create<Account>()
                     ReadAll<Account>().auth(\.$user)

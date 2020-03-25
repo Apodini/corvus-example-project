@@ -18,6 +18,9 @@ final class Account: CorvusModel {
     @Parent(key: "user_id")
     var user: CorvusUser
 
+    @Timestamp(key: "deleted_at", on: .delete)
+    var deletedAt: Date?
+
     @Children(for: \.$account)
     var transactions: [Transaction]
 
@@ -40,6 +43,7 @@ struct CreateAccount: Migration {
                 .uuid,
                 .references(CorvusUser.schema, "id")
             )
+            .field("deleted_at", .date)
             .create()
     }
 

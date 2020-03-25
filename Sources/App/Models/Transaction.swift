@@ -21,6 +21,9 @@ final class Transaction: CorvusModel {
     @Field(key: "description")
     var description: String?
 
+    @Timestamp(key: "deleted_at", on: .delete)
+    var deletedAt: Date?
+    
     @Field(key: "date")
     var date: Date
 
@@ -56,6 +59,7 @@ struct CreateTransaction: Migration {
             .field("description", .string)
             .field("date", .datetime, .required)
             .field("account_id", .uuid, .references(Account.schema, .id))
+            .field("deleted_at", .date)
             .create()
     }
 
