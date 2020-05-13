@@ -2,37 +2,33 @@
 import PackageDescription
 
 let package = Package(
-    name: "app",
+    name: "XpenseServer",
     platforms: [
-       .macOS(.v10_15)
+        .macOS(.v10_15)
     ],
     products: [
-        .executable(name: "Run", targets: ["Run"]),
-        .library(name: "App", targets: ["App"]),
+        .library(name: "XpenseServer", targets: ["XpenseServer"])
     ],
     dependencies: [
-        // 💧 A server-side Swift web framework.
-        .package(
-            url: "https://github.com/Apodini/corvus",
-            from: "0.0.8"
-        ),
-
-        .package(
-            url: "https://github.com/vapor/fluent-sqlite-driver.git",
-            from: "4.0.0-rc"
-        ),
+        .package(url: "https://github.com/Apodini/corvus.git", from: "0.0.13"),
+        .package(url: "https://github.com/vapor/vapor.git", from: "4.0.0"),
+        .package(url: "https://github.com/vapor/fluent-sqlite-driver.git", from: "4.0.0-rc")
     ],
     targets: [
-        .target(
-            name: "App",
-            dependencies: [
-                .product(name: "Corvus", package: "corvus"),
-                .product(
-                    name: "FluentSQLiteDriver",
-                    package: "fluent-sqlite-driver"
-                ),
-            ]
-        ),
-        .target(name: "Run", dependencies: ["App"]),
+        .target(name: "Run",
+                dependencies: [
+                    .target(name: "XpenseServer")
+                ]),
+        .target(name: "XpenseServer",
+                dependencies: [
+                    .product(name: "Corvus", package: "corvus"),
+                    .product(name: "FluentSQLiteDriver", package: "fluent-sqlite-driver")
+                ]),
+        .testTarget(name: "XpenseServerTests",
+                    dependencies: [
+                        .target(name: "XpenseServer"),
+                        .product(name: "XCTVapor", package: "vapor"),
+                        .product(name: "FluentSQLiteDriver", package: "fluent-sqlite-driver")
+                    ])
     ]
 )
