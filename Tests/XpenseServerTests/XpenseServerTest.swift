@@ -36,7 +36,7 @@ class XpenseServerTests: XCTestCase {
 
         try app.autoMigrate().wait()
         
-        try app.register(collection: XpenseApi())
+        try app.register(collection: xpenseApi)
         
         self.app = app
         

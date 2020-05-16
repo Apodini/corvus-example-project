@@ -19,7 +19,7 @@ final class AccountsEndpointTests: XpenseServerTests {
         
         // Create the User
         let corvusUser = CorvusUser(username: user.username,
-                                    passwordHash: try Bcrypt.hash(user.password))
+                                    password: try Bcrypt.hash(user.password))
         try corvusUser.save(on: database()).wait()
         user.id = corvusUser.id
         

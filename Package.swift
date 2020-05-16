@@ -10,7 +10,7 @@ let package = Package(
         .library(name: "XpenseServer", targets: ["XpenseServer"])
     ],
     dependencies: [
-        .package(url: "https://github.com/Apodini/corvus.git", from: "0.0.13"),
+        .package(url: "https://github.com/Apodini/corvus.git", from: "0.0.14"),
         .package(url: "https://github.com/vapor/vapor.git", from: "4.0.0"),
         .package(url: "https://github.com/vapor/fluent-sqlite-driver.git", from: "4.0.0-rc")
     ],

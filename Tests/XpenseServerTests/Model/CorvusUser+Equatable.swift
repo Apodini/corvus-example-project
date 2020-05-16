@@ -14,6 +14,6 @@ extension CorvusUser: Equatable {
     public static func == (lhs: CorvusUser, rhs: CorvusUser) -> Bool {
         lhs.username == rhs.username
             && lhs.id == rhs.id
-            && lhs.passwordHash == rhs.passwordHash
+            && lhs.password == rhs.password
     }
 }

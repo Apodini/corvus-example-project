@@ -12,10 +12,18 @@ import Corvus
 // MARK: AccountsEndpoint
 /// The `Endpoint` that handles all the API interaction with `Accounts`
 final class AccountsEndpoint: Endpoint {
+    let parameter = Parameter<Account>()
+    
     var content: Endpoint {
         Group("accounts") {
-            CRUD<Account>()
-                .auth(\.$user)
+            Create<Account>().auth(\.$user)
+            ReadAll<Account>().auth(\.$user)
+            
+            Group(parameter.id) {
+                ReadOne<Account>(parameter.id).auth(\.$user)
+                Update<Account>(parameter.id).auth(\.$user)
+                Delete<Account>(parameter.id).auth(\.$user)
+            }
         }
     }
 }

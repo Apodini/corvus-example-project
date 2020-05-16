@@ -15,6 +15,5 @@ import Vapor
 /// - Throws: The function will throw an error in case the registration of the routes fails
 public func routes(_ app: Application) throws {
     // Instantiate the Corvus API and register the API to the Vapor router
-    let api = XpenseApi()
-    try app.register(collection: api)
+    try app.register(collection: xpenseApi)
 }

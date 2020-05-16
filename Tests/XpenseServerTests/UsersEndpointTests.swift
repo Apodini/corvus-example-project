@@ -52,7 +52,7 @@ final class UsersEndpointTests: XpenseServerTests {
     /// Tests the failure of creating a `User` without a password
     func testFailureWithSameUsername() throws {
         let corvusUser = CorvusUser(username: user.username,
-                                    passwordHash: try Bcrypt.hash(user.password))
+                                    password: try Bcrypt.hash(user.password))
         try corvusUser.save(on: database()).wait()
         user.id = corvusUser.id
         

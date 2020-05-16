@@ -11,20 +11,16 @@ import Corvus
 
 // MARK: XpenseApi
 /// The main class that describes the RESTful API of the Xpense App
-final class XpenseApi: RestApi {
-    var content: Endpoint {
-        Group("api") {
-            // The users route that handles the creation of `CorvusUser`s
-            UsersEndpoint()
-            
-            // The login route provided by Corvus that delivers `CorvusToken`s
-            Login<CorvusToken>("login")
-            
-            // This group is authenticated using a bearer token based Authentication
-            BearerAuthGroup<CorvusToken> {
-                AccountsEndpoint()
-                TransactionsEndpoint()
-            }
-        }
+let xpenseApi = Api("api") {
+    // The users route that handles the creation of `CorvusUser`s
+    User<CorvusUser>("users")
+    
+    // The login route provided by Corvus that delivers `CorvusToken`s
+    Login<CorvusToken>("login")
+    
+    // This group is authenticated using a bearer token based Authentication
+    BearerAuthGroup<CorvusToken> {
+        AccountsEndpoint()
+        TransactionsEndpoint()
     }
 }
