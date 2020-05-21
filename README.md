@@ -20,4 +20,4 @@
 
 <br>
 
-This repository contains Xpense, an app that manages bank accounts and transactions for specific users. It is built with Corvus.
+This repository contains Xpense, an app that manages bank accounts and transactions for specific users. It is built with [Corvus](https://github.com/apodini/corvus).
