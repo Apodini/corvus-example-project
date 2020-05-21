@@ -19,7 +19,6 @@ class XpenseServerTests: XCTestCase {
     /// The Vaport Test Application that forms the system under test
     private var app: Application?
     
-    
     override func setUpWithError() throws {
         try super.setUpWithError()
         
