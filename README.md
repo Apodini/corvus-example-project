@@ -11,7 +11,7 @@
         <img src="https://img.shields.io/badge/license-MIT-brightgreen.svg" alt="MIT License">
     </a>
     <a href="https://github.com/Apodini/corvus-example-project/actions">
-        <img src="https://github.com/Apodini/corvus-example-project/workflows/test/badge.svg?branch=master" alt="Continuous Integration">
+        <img src="https://github.com/Apodini/corvus-example-project/workflows/Build%20and%20Test/badge.svg" alt="Continuous Integration">
     </a>
     <a href="https://swift.org">
         <img src="https://img.shields.io/badge/swift-5.2-brightgreen.svg" alt="Swift 5.2">
