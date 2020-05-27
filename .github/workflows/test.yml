@@ -1,6 +1,7 @@
 name: Build and Test
 
-on: [push]
+on: [push, repository_dispatch]
+
 
 jobs:
   macos:
